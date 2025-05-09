@@ -1,0 +1,12 @@
+{
+  "Version": 1,
+  "Hash": "dpjlbMtDoHU8mgCizXwylG6bbC0oKjCPRdo7W4pDMTs=",
+  "Source": "ToDoLista.api",
+  "BasePath": "_content/ToDoLista.api",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": [],
+  "Endpoints": []
+}

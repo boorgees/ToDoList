@@ -1,0 +1,33 @@
+.container {
+    max-width: 400px;
+    margin: 20px auto;
+    font-family: Arial;
+  }
+  
+  .form {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 20px;
+  }
+  
+  input {
+    flex: 1;
+    padding: 8px;
+  }
+  
+  button {
+    padding: 8px 12px;
+    cursor: pointer;
+  }
+  
+  ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  li {
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+  }
+  

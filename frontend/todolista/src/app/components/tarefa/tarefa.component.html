@@ -1,0 +1,16 @@
+<div class="container">
+    <h2>📋 Lista de Tarefas</h2>
+
+    <!-- Formulário de criação -->
+    <div class="form">
+        <input type="text" [(ngModel)]="novaTarefa.titulo" placeholder="Digite a nova tarefa" />
+        <button (click)="adicionarTarefa()">Adicionar</button>
+    </div>
+
+    <!-- Lista de tarefas -->
+    <ul>
+        <li *ngFor="let tarefa of tarefas">
+            {{ tarefa.titulo }} - {{ tarefa.status }}
+            <button (click)="deletarTarefa(tarefa.id!)">🗑️</button>
+        </li>    </ul>
+</div>
