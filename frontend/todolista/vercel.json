@@ -4,14 +4,19 @@
   "outputDirectory": "dist/todolista/browser",
   "routes": [
     {
-      "handle": "filesystem"
-    },
-    {
-      "src": "/assets/(.*)",
+      "src": "^/assets/(.*)",
       "dest": "/assets/$1"
     },
     {
-      "src": "/(.*)",
+      "src": "^/favicon.ico",
+      "dest": "/favicon.ico"
+    },
+    {
+      "src": "^/manifest.json",
+      "dest": "/manifest.json"
+    },
+    {
+      "src": "^/.*",
       "dest": "/index.html"
     }
   ]
