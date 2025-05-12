@@ -190,3 +190,4 @@ C:\Users\chris\Documents\Projetos\ToDoList\backend\ToDoLista.api\bin\Debug\net8.
 C:\Users\chris\Documents\Projetos\ToDoList\backend\ToDoLista.api\bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
 C:\Users\chris\Documents\Projetos\ToDoList\backend\ToDoLista.api\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
 C:\Users\chris\Documents\Projetos\ToDoList\backend\ToDoLista.api\bin\Debug\net8.0\runtimes\browser\lib\net8.0\System.Text.Encodings.Web.dll
+C:\Users\chris\Documents\Projetos\ToDoList\backend\ToDoLista.api\obj\Debug\net8.0\ToDoLista.api.sourcelink.json
