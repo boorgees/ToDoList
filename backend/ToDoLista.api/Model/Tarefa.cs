@@ -11,8 +11,8 @@ namespace Model
         public int Id { get; set; }
         [Required]
         public string Titulo { get; set; }
-        public string Descricao { get; set; }
-        [Required]	
+        public string? Descricao { get; set; }
+        [Required]
         public DateTime DataCriacao { get; set; } = DateTime.Now;
         public DateTime? DataConclusao { get; set; }
         [Required]
@@ -22,8 +22,8 @@ namespace Model
     public enum Status
     {
         [Description("Pendente")]
-        Pendente,
-        [Description("Em Andamento")]
-        Concluida
+        Pendente = 0,
+        [Description("Concluída")]
+        Concluida = 1
     }
 }

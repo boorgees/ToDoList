@@ -44,6 +44,17 @@ namespace Controllers
             return Ok(tarefa);
         }
 
+        [HttpGet("status/{status}")]
+        public async Task<IActionResult> GetByStatus(string status)
+        {
+            var tarefas = await _tarefaRepository.GetByStatusAsync(status);
+            if (tarefas == null || !tarefas.Any())
+            {
+                return NotFound();
+            }
+            return Ok(tarefas);
+        }
+
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] Tarefa tarefa)
         {

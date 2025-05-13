@@ -7,6 +7,17 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Add CORS configuration
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("DevPolicy",
+        builder => builder
+            .WithOrigins("http://localhost:4200")  // Angular dev server
+            .AllowAnyMethod()
+            .AllowAnyHeader()
+            .AllowCredentials());
+});
+
 // Add services to the container.
 
 builder.Services.AddControllers();
@@ -22,6 +33,9 @@ builder.Services.AddScoped<ITarefaRepository, TarefaRepository>();
 builder.Services.AddScoped<ITarefaService, TarefaService>();
 
 var app = builder.Build();
+
+// Add CORS middleware - must be before authorization and endpoints
+app.UseCors("DevPolicy");
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

@@ -30,6 +30,14 @@ namespace Repositories
             return await _context.Tarefas.FirstOrDefaultAsync(t => t.Titulo == titulo);
         }
 
+        public async Task<IEnumerable<Tarefa>> GetByStatusAsync(string status)
+        {
+            if (!Enum.TryParse<Status>(status, out var statusEnum))
+                throw new ArgumentException("Status inválido", nameof(status));
+
+            return await _context.Tarefas.Where(t => t.Status == statusEnum).ToListAsync();
+        }
+
         public async Task AddAsync(Tarefa tarefa)
         {
             await _context.Tarefas.AddAsync(tarefa);

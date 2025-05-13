@@ -1,12 +1,13 @@
-export class Tarefa {
+export enum TarefaStatus {
+    Pendente,
+    Concluida
 }
 
 export interface Tarefa {
-    id?: number; // O id é opcional, pois ele será gerado automaticamente pelo banco de dados
+    id?: number;
     titulo: string;
     descricao?: string;
     dataCriacao?: string;
     dataConclusao?: string | null;
-    status: 'Pendente' | 'EmAndamento' | 'Concluida';
-  }
-  
+    status: TarefaStatus;
+}

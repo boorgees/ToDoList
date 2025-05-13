@@ -1,16 +1,45 @@
 <div class="container">
     <h2>📋 Lista de Tarefas</h2>
 
-    <!-- Formulário de criação -->
-    <div class="form">
-        <input type="text" [(ngModel)]="novaTarefa.titulo" placeholder="Digite a nova tarefa" />
-        <button (click)="adicionarTarefa()">Adicionar</button>
-    </div>
+    <div class="colunas">
+        <!-- Coluna 1: Formulário + Tarefas Pendentes -->
+        <div class="coluna">
+            <div class="form">
+                <input type="text" [(ngModel)]="novaTarefa.titulo" placeholder="Insira a nova tarefa" />
+                <input type="text" [(ngModel)]="novaTarefa.descricao" placeholder="Insira a descrição" />
+                <button (click)="adicionarTarefa()">Adicionar</button>
+            </div>
 
-    <!-- Lista de tarefas -->
-    <ul>
-        <li *ngFor="let tarefa of tarefas">
-            {{ tarefa.titulo }} - {{ tarefa.status }}
-            <button (click)="deletarTarefa(tarefa.id!)">🗑️</button>
-        </li>    </ul>
+            <ul>
+                <li *ngFor="let tarefa of tarefas">
+                    <div class="card-header">Atividade: {{ tarefa.titulo }}</div>
+                    <div class="card-status">Status: {{ getStatusText(tarefa.status) }}</div>
+                    <div *ngIf="tarefa.descricao" class="card-descricao">Descrição: {{ tarefa.descricao }}</div>
+                    <div class="card-data">Início: {{ tarefa.dataCriacao | date: 'dd/MM/yyyy HH:mm' }}</div>
+                    <div class="card-botoes">
+                        <button class="concluir" (click)="concluirTarefa(tarefa.id!)">Concluir ✅</button>
+                        <button class="deletar" (click)="deletarTarefa(tarefa.id!)">Deletar 🗑️</button>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Coluna 2: Tarefas Concluídas -->
+        <div class="coluna">
+            <h3>Tarefas Concluídas</h3>
+            <ul>
+                <li *ngFor="let tarefaz of tarefaConcluida">
+                    <div class="card-header">Atividade: {{ tarefaz.titulo }}</div>
+                    <div class="card-status">Status: {{ getStatusText(tarefaz.status) }}</div>
+                    <div class="card-descricao">Descrição: {{ tarefaz.descricao }}</div>
+                    <div class="card-data">Início: {{ tarefaz.dataCriacao | date: 'dd/MM/yyyy HH:mm' }}</div>
+                    <div class="card-data">Fim: {{tarefaz.dataConclusao | date:'dd/MM/yyy HH:mm'}}</div>
+                    <div class="card-botoes">
+                        <button class="concluir" (click)="pendenteTarefa(tarefaz.id!)">Tornar Pendente ⏳</button>
+                        <button class="deletar" (click)="deletarTarefa(tarefaz.id!)"> Deletar 🗑️</button>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
 </div>

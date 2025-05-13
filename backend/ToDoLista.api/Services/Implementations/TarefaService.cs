@@ -44,6 +44,16 @@ namespace Services.Implementations {
             }
         }
 
+        public async Task<IEnumerable<Tarefa>> GetByStatusAsync(string status) {
+           try {
+                var tarefas = await _tarefaRepository.GetByStatusAsync(status);
+                return tarefas;
+            } catch (Exception ex) {
+
+                throw new Exception("Erro ao obter tarefas", ex);
+            }
+        }
+
         public async Task AddAsync(Tarefa tarefa) {
            try {
                 await _tarefaRepository.AddAsync(tarefa);
