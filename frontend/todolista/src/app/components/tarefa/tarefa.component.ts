@@ -71,7 +71,7 @@ export class TarefaComponent implements OnInit {
       this.tarefas = this.tarefas.filter(t => t.id !== id);
       this.carregarTarefas();
     });
-    
+
   }
 
   concluirTarefa(id: number): void {
@@ -92,19 +92,25 @@ export class TarefaComponent implements OnInit {
   }
 
   pendenteTarefa(id: number): void {
-    const tarefa = this.tarefas.find(t => t.id === id);
+    const tarefa = this.tarefaConcluida.find(t => t.id === id);
     if (!tarefa) return;
     const tarefaAtualizada: Tarefa = {
       ...tarefa,
-      status: 0,
+      status: TarefaStatus.Pendente,
       dataConclusao: null,
       dataCriacao: tarefa.dataCriacao,
     };
     console.log(tarefaAtualizada);
-    this.tarefaService.PendenteTarefa(tarefaAtualizada).subscribe(() => {
-      this.tarefas = this.tarefas.map(t =>
-        t.id === id ? tarefaAtualizada : t
-      );
+    this.tarefaService.PendenteTarefa(tarefaAtualizada).subscribe({
+      next: () => {
+        this.tarefas = this.tarefas.map(t =>
+          t.id === id ? tarefaAtualizada : t
+        );
+        this.carregarTarefas();
+      },
+      error: (err) => {
+        console.error('Erro ao reabrir tarefa:', err);
+      }
     });
   }
 }
