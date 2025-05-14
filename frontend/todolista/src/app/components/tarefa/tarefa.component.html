@@ -1,68 +1,74 @@
 <div class="container">
-    <h2>📋 Lista de Tarefas</h2>
+  <h2>📋 Lista de Tarefas</h2>
 
-    <div class="colunas">
-        <!-- Coluna 1: Formulário + Tarefas Pendentes -->
-        <div class="coluna">
-            <div class="form">
-                <input type="text" [(ngModel)]="novaTarefa.titulo" placeholder="Insira a nova tarefa" />
-                <input type="text" [(ngModel)]="novaTarefa.descricao" placeholder="Insira a descrição" />
-                <button (click)="adicionarTarefa()">Adicionar</button>
-            </div>
-            <!-- <div class="form">
-                <input type="text" [(ngModel)]="tarefaSelecionada.titulo" placeholder="Pesquisar tarefa"/>
-                <button (click)="filtroTarefa(novaTarefa.titulo)">Pesquisar 🔍</button>
-            </div> -->
-        </div>
+  <!-- Área de Inserção no Topo, Centralizada -->
+  <div class="form-top">
+    <input type="text" [(ngModel)]="novaTarefa.titulo" placeholder="Título da nova tarefa" />
+    <input type="text" [(ngModel)]="novaTarefa.descricao" placeholder="Descrição da nova tarefa" />
+    <button (click)="adicionarTarefa()">Adicionar</button>
+  </div>
+
+  <!-- Colunas de Tarefas -->
+  <div class="colunas-tarefas">
+    <div class="coluna">
+      <h3>Tarefas Pendentes</h3>
+      <ul>
+        <li *ngFor="let tarefa of tarefas">
+          <div class="card-header">Atividade: {{ tarefa.titulo }}</div>
+          <div class="card-status">Status: {{ getStatusText(tarefa.status) }}</div>
+          <div *ngIf="tarefa.descricao" class="card-descricao">Descrição: {{ tarefa.descricao }}</div>
+          <div class="card-data">Início: {{ tarefa.dataCriacao | date: 'dd/MM/yyyy HH:mm' }}</div>
+          <div class="card-botoes">
+            <button class="concluir" (click)="concluirTarefa(tarefa.id!)">
+              <i class="icone-acao">✅</i> Concluir
+            </button>
+            <button class="deletar" (click)="deletarTarefa(tarefa.id!)">
+              <i class="icone-acao">🗑️</i> Deletar
+            </button>
+            <button class="editar" (click)="editarTarefa(tarefa.id!)">
+              <i class="icone-acao">✏️</i> Editar
+            </button>
+          </div>
+        </li>
+      </ul>
     </div>
-    <div class="colunas-tarefas">
-        <div>
-            <h3>Tarefa Pendentes</h3>
-            <ul>
-                <li *ngFor="let tarefa of tarefas">
-                    <div class="card-header">Atividade: {{ tarefa.titulo }}</div>
-                    <div class="card-status">Status: {{ getStatusText(tarefa.status) }}</div>
-                    <div *ngIf="tarefa.descricao" class="card-descricao">Descrição: {{ tarefa.descricao }}</div>
-                    <div class="card-data">Início: {{ tarefa.dataCriacao | date: 'dd/MM/yyyy HH:mm' }}</div>
-                    <div class="card-botoes">
-                        <button class="concluir" (click)="concluirTarefa(tarefa.id!)">Concluir ✅</button>
-                        <button class="deletar" (click)="deletarTarefa(tarefa.id!)">Deletar 🗑️</button>
-                        <button class="editar" (click)="editarTarefa(tarefa.id!)">Editar ✏️</button>
-                    </div>
-                </li>
-            </ul>
-        </div>
-        <div class="coluna">
-            <h3>Tarefas Concluídas</h3>
-            <ul>
-                <li *ngFor="let tarefaz of tarefaConcluida">
-                    <div class="card-header">Atividade: {{ tarefaz.titulo }}</div>
-                    <div class="card-status">Status: {{ getStatusText(tarefaz.status) }}</div>
-                    <div class="card-descricao">Descrição: {{ tarefaz.descricao }}</div>
-                    <div class="card-data">Início: {{ tarefaz.dataCriacao | date: 'dd/MM/yyyy HH:mm' }}</div>
-                    <div class="card-data">Fim: {{tarefaz.dataConclusao | date:'dd/MM/yyy HH:mm'}}</div>
-                    <div class="card-botoes">
-                        <button class="concluir" (click)="pendenteTarefa(tarefaz.id!)">Tornar Pendente ⏳</button>
-                        <button class="deletar" (click)="deletarTarefa(tarefaz.id!)"> Deletar 🗑️</button>
-                    </div>
-                </li>
-            </ul>
-        </div>
+    <div class="coluna">
+      <h3>Tarefas Concluídas</h3>
+      <ul>
+        <li *ngFor="let tarefaz of tarefaConcluida">
+          <div class="card-header">Atividade: {{ tarefaz.titulo }}</div>
+          <div class="card-status">Status: {{ getStatusText(tarefaz.status) }}</div>
+          <div class="card-descricao">Descrição: {{ tarefaz.descricao }}</div>
+          <div class="card-data">Início: {{ tarefaz.dataCriacao | date: 'dd/MM/yyyy HH:mm' }}</div>
+          <div class="card-data">Fim: {{ tarefaz.dataConclusao | date: 'dd/MM/yyyy HH:mm' }}</div>
+          <div class="card-botoes">
+            <button class="concluir" (click)="pendenteTarefa(tarefaz.id!)">
+              <i class="icone-acao">⏳</i> Tornar Pendente
+            </button>
+            <button class="deletar" (click)="deletarTarefa(tarefaz.id!)">
+              <i class="icone-acao">🗑️</i> Deletar
+            </button>
+          </div>
+        </li>
+      </ul>
     </div>
-</div>
-<div *ngIf="mostrarModal" class="modal">
+  </div>
+
+  <!-- Modal de Edição -->
+  <div *ngIf="mostrarModal" class="modal">
     <div class="modal-content">
-        <span class="close" (click)="fecharModal()">×</span>
-        <h3>Editar Tarefa</h3>
-        <form (ngSubmit)="salvarEdicao()">
-            <label for="titulo">Título:</label>
-            <input type="text" [(ngModel)]="tarefaEditada.titulo" name="titulo" required />
+      <span class="close" (click)="fecharModal()">×</span>
+      <h3>Editar Tarefa</h3>
+      <form (ngSubmit)="salvarEdicao()">
+        <label for="titulo">Título:</label>
+        <input type="text" [(ngModel)]="tarefaEditada.titulo" name="titulo" required />
 
-            <label for="descricao">Descrição:</label>
-            <textarea [(ngModel)]="tarefaEditada.descricao" name="descricao"></textarea>
+        <label for="descricao">Descrição:</label>
+        <textarea [(ngModel)]="tarefaEditada.descricao" name="descricao"></textarea>
 
-            <button type="submit">Salvar</button>
-            <button type="button" (click)="fecharModal()">Cancelar</button>
-        </form>
+        <button type="submit">Salvar</button>
+        <button type="button" (click)="fecharModal()">Cancelar</button>
+      </form>
     </div>
+  </div>
 </div>
