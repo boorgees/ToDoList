@@ -15,23 +15,11 @@ export class TarefaService {
     return this.http.get<Tarefa[]>(this.apiUrl);
   }
 
-  // getTarefasConcluidas(): Observable<Tarefa[]> {
-  //   return this.http.get<Tarefa[]>(`${this.apiUrl}/status`);
-  // }
-
   criarTarefa(tarefa: Tarefa): Observable<Tarefa> {
     return this.http.post<Tarefa>(this.apiUrl, tarefa);
   }
 
   atualizarTarefa(tarefa: Tarefa): Observable<Tarefa> {
-    return this.http.put<Tarefa>(`${this.apiUrl}/${tarefa.id}`, tarefa);
-  }
-
-  PendenteTarefa(tarefa: Tarefa): Observable<Tarefa> {
-    return this.http.put<Tarefa>(`${this.apiUrl}/${tarefa.id}`, tarefa);
-  }
-
-  concluirTarefa(tarefa: Tarefa): Observable<Tarefa> {
     return this.http.put<Tarefa>(`${this.apiUrl}/${tarefa.id}`, tarefa);
   }
 

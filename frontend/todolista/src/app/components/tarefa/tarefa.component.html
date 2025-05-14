@@ -9,7 +9,15 @@
                 <input type="text" [(ngModel)]="novaTarefa.descricao" placeholder="Insira a descrição" />
                 <button (click)="adicionarTarefa()">Adicionar</button>
             </div>
-
+            <!-- <div class="form">
+                <input type="text" [(ngModel)]="tarefaSelecionada.titulo" placeholder="Pesquisar tarefa"/>
+                <button (click)="filtroTarefa(novaTarefa.titulo)">Pesquisar 🔍</button>
+            </div> -->
+        </div>
+    </div>
+    <div class="colunas-tarefas">
+        <div>
+            <h3>Tarefa Pendentes</h3>
             <ul>
                 <li *ngFor="let tarefa of tarefas">
                     <div class="card-header">Atividade: {{ tarefa.titulo }}</div>
@@ -19,12 +27,11 @@
                     <div class="card-botoes">
                         <button class="concluir" (click)="concluirTarefa(tarefa.id!)">Concluir ✅</button>
                         <button class="deletar" (click)="deletarTarefa(tarefa.id!)">Deletar 🗑️</button>
+                        <button class="editar" (click)="editarTarefa(tarefa.id!)">Editar ✏️</button>
                     </div>
                 </li>
             </ul>
         </div>
-
-        <!-- Coluna 2: Tarefas Concluídas -->
         <div class="coluna">
             <h3>Tarefas Concluídas</h3>
             <ul>
@@ -41,5 +48,21 @@
                 </li>
             </ul>
         </div>
+    </div>
+</div>
+<div *ngIf="mostrarModal" class="modal">
+    <div class="modal-content">
+        <span class="close" (click)="fecharModal()">×</span>
+        <h3>Editar Tarefa</h3>
+        <form (ngSubmit)="salvarEdicao()">
+            <label for="titulo">Título:</label>
+            <input type="text" [(ngModel)]="tarefaEditada.titulo" name="titulo" required />
+
+            <label for="descricao">Descrição:</label>
+            <textarea [(ngModel)]="tarefaEditada.descricao" name="descricao"></textarea>
+
+            <button type="submit">Salvar</button>
+            <button type="button" (click)="fecharModal()">Cancelar</button>
+        </form>
     </div>
 </div>
